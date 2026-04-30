@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Study Assistant</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Distinctive font pairing: Playfair Display + DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+
+    <!-- ── Background decorations ─────────────────────────────────────────── -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+
+    <!-- ── Header ─────────────────────────────────────────────────────────── -->
+    <header class="site-header">
+      <div class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">StudyAI</span>
+      </div>
+      <p class="tagline">Upload a PDF. Understand everything.</p>
+    </header>
+
+    <!-- ── Main ───────────────────────────────────────────────────────────── -->
+    <main>
+
+      <!-- Upload Card -->
+      <section class="card upload-card" id="uploadCard">
+        <div class="card-eyebrow">Step 1</div>
+        <h2 class="card-title">Drop Your Study Material</h2>
+        <p class="card-subtitle">
+          Upload any PDF — textbook chapter, lecture notes, research paper.
+        </p>
+
+        <!-- Drag-and-drop zone -->
+        <div class="drop-zone" id="dropZone" role="button" tabindex="0"
+             aria-label="Click or drag to upload a PDF">
+          <div class="drop-icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 8L24 32M24 8L16 16M24 8L32 16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 36H40" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="drop-label">Drag &amp; drop a PDF here</p>
+          <p class="drop-meta">or click to browse &mdash; max 10 MB</p>
+          <input type="file" id="fileInput" accept=".pdf,application/pdf" hidden />
+        </div>
+
+        <!-- Selected file indicator -->
+        <div class="file-badge hidden" id="fileBadge">
+          <span class="file-badge-icon">📄</span>
+          <span class="file-badge-name" id="fileName">document.pdf</span>
+          <button class="file-badge-remove" id="removeFile" aria-label="Remove file">✕</button>
+        </div>
+
+        <!-- Submit -->
+        <button class="btn-analyze" id="analyzeBtn" disabled>
+          <span class="btn-text">Analyze PDF</span>
+          <span class="btn-arrow">→</span>
+        </button>
+
+        <!-- Error message -->
+        <div class="error-box hidden" id="errorBox">
+          <span class="error-icon">⚠</span>
+          <span class="error-msg" id="errorMsg">Something went wrong.</span>
+        </div>
+      </section>
+
+      <!-- Loading state -->
+      <section class="card loading-card hidden" id="loadingCard">
+        <div class="spinner-ring"></div>
+        <h2 class="loading-title">Analyzing your document…</h2>
+        <div class="loading-steps" id="loadingSteps">
+          <div class="step active" id="step1">
+            <span class="step-dot"></span> Extracting text with Azure AI
+          </div>
+          <div class="step" id="step2">
+            <span class="step-dot"></span> Generating summary
+          </div>
+          <div class="step" id="step3">
+            <span class="step-dot"></span> Identifying key topics
+          </div>
+          <div class="step" id="step4">
+            <span class="step-dot"></span> Writing quiz questions
+          </div>
+        </div>
+      </section>
+
+      <!-- Results -->
+      <section class="results hidden" id="results">
+
+        <!-- Result header -->
+        <div class="results-header">
+          <div class="results-eyebrow">Analysis Complete</div>
+          <h2 class="results-title" id="resultsFileName">document.pdf</h2>
+          <button class="btn-reset" id="resetBtn">← Analyze another PDF</button>
+        </div>
+
+        <!-- Summary card -->
+        <div class="card result-card" id="summaryCard">
+          <div class="result-label">
+            <span class="result-label-icon">✦</span> Summary
+          </div>
+          <p class="summary-text" id="summaryText"></p>
+        </div>
+
+        <!-- Topics card -->
+        <div class="card result-card" id="topicsCard">
+          <div class="result-label">
+            <span class="result-label-icon">◈</span> Key Topics
+          </div>
+          <div class="topics-grid" id="topicsGrid"></div>
+        </div>
+
+        <!-- Quiz card -->
+        <div class="card result-card" id="quizCard">
+          <div class="result-label">
+            <span class="result-label-icon">◆</span> Quiz Questions
+          </div>
+          <ol class="quiz-list" id="quizList"></ol>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- ── Footer ─────────────────────────────────────────────────────────── -->
+    <footer>
+      <p>Powered by <strong>Azure Document Intelligence</strong> &amp; <strong>Hugging Face</strong></p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
