@@ -83,7 +83,7 @@ smart-study-assistant/
 ├── server/
 │   ├── server.js         # Express server & routes
 │   ├── azureService.js   # Azure Document Intelligence integration
-│   ├── aiService.js      # Hugging Face AI integration
+│   ├── aiService.js      # Gemini AI integration
 │   └── utils.js          # Text cleaning & validation utilities
 ├── .env                  # Environment variables (never commit this!)
 ├── package.json
